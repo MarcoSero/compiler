@@ -3,6 +3,8 @@ Implementation of a compiler (lexer, parser, generator)
 
 ## Language syntax
 
+Some examples of the new language can be found in `code.to_be_compiled`.
+
 The following code
 
 ```
