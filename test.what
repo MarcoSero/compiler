@@ -1,0 +1,4 @@
+whatever f (x, y) { add(10, add(x,y)) } 
+whatever g (x, y) { 1 } 
+whatever h (x, y) { 2 }
+
