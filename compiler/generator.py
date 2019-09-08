@@ -9,11 +9,14 @@ class Generator:
         if t == RootNode:
             return '\n'.join([self.generate(definition) for definition in node.all_definitions])
         elif t == DefNode:
-            return "function %s(%s) { return %s; }" % (
+            return "function %s(%s) {\n %s\n}" % (
                 node.name,
                 ', '.join(node.arg_names),
                 self.generate(node.body)
             )
+        elif t is BodyNode:
+            all_but_last = ";\n ".join([self.generate(expr) for expr in node.expressions[:-1]])
+            return all_but_last + ("\n return %s;" % self.generate(node.expressions[-1]))
         elif t is CallNode:
             return "%s(%s)" % (
                 node.name,

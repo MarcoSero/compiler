@@ -12,18 +12,17 @@ class Token:
 
 class Tokenizer:
     token_types = dict(
-        definition = r'\bwhatever\b', # whatever keyword
-        integer    = r'\b[0-9]+\b',   # any integer number
-        identifier = r'\b\w+\b',      # any words characters
-        comma      = r',',            # close paren
-        ocurly     = r'\{',           # open curly bracket
-        ccurly     = r'\}',           # close curly bracket
-        oparen     = r'\(',           # open paren
-        cparen     = r'\)',           # close paren
+        functionstart = r'=>',
+        functionend = r'\be\b',
+        integer       = r'\b[0-9]+\b',   # any integer number
+        identifier    = r'\b\w+\b',      # any words characters
+        comma         = r',',            # close paren
+        oparen        = r'\(',           # open paren
+        cparen        = r'\)',           # close paren
     )
 
     def __init__(self, code):
-        self.code = code
+        self.code = code.strip()
 
     def tokenize(self):
         tokens = []
@@ -39,3 +38,4 @@ class Tokenizer:
             if match:
                 self.code = self.code[match.end():]
                 return Token(type, match[0])
+        raise RuntimeError('no token found for remaining code:\n%s' % self.code)

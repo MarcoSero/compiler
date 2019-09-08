@@ -8,7 +8,6 @@ from compiler.parser import Parser
 from compiler.tokenizer import Tokenizer
 
 if len(sys.argv) < 2:
-    print("no file to compile")
     sys.exit()
 
 generated = ""
@@ -23,7 +22,6 @@ for filename in sys.argv[1:]:
 
     generator = Generator(tree)
     generated = generated + '\n' + generator.generate(tree)
-
 
 # print(generated)
 

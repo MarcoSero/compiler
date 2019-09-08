@@ -16,6 +16,13 @@ class DefNode:
     def __str__(self):
         return 'DefNode(%s, %s, %s)' % (self.name, str(self.arg_names), str(self.body))
 
+class BodyNode:
+    def __init__(self, expressions):
+        self.expressions = expressions
+
+    def __str__(self):
+        return 'BodyNode(%s)' % str(list(map(lambda x: str(x), self.expressions)))
+
 class IntegerNode:
     def __init__(self, value):
         self.value = value
