@@ -10,20 +10,31 @@ from compiler.tokenizer import Tokenizer
 if len(sys.argv) < 2:
     sys.exit()
 
+debug_enabled = False
+files = sys.argv[1:]
+
+if sys.argv[1] == '--debug':
+    debug_enabled = True
+    files = files[1:]
+
 generated = ""
-for filename in sys.argv[1:]:
+for filename in files:
     tokenizer = Tokenizer(open(filename).read())
     tokens = tokenizer.tokenize()
-    # print(list(map(lambda x: x.value, tokens)))
+    if debug_enabled:
+        print('>>> parsed tokens:\n%s\n' % list(map(lambda x: x.value, tokens)))
 
     parser = Parser(tokens)
     tree = parser.parse()
-    # print(tree)
+    if debug_enabled:
+        print('>>> parse tree:\n%s\n' % tree)
 
     generator = Generator(tree)
     generated = generated + '\n' + generator.generate(tree)
 
-# print(generated)
+if debug_enabled:
+    print('>>> generated code:\n%s' % generated)
+    exit()
 
 RUNTIME = """
 function add(x, y) { return x + y; }
